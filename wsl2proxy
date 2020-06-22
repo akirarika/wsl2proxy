@@ -13,9 +13,6 @@ function openProxy
     export ftp_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
     export http_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
     export https_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
-
-    echo $host_ip
-    echo $all_proxy
 }
 
 function closeProxy
