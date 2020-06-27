@@ -26,7 +26,8 @@ source /usr/local/wsl2proxy/wsl2proxy socks5 7891
 如果希望启动后直接打开经过透明代理的 shell，可继续在末尾添加：
 
 ```shellscript
-if [ $IS_ROOT_SHELL ];then
+# 避免递归打开的问题
+if [ ! $IS_ROOT_SHELL ];then
     proxy bash
     exit
 fi
