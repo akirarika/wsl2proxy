@@ -21,6 +21,17 @@ source /usr/local/wsl2proxy/wsl2proxy socks5 7891
 
 重启后输入 `proxy "curl https://www.google.com/"` 查看是否成功了吧！
 
+你甚至可以 `proxy bash` 直接打开被透明代理的一个 shell
+
+如果希望启动后直接打开经过透明代理的 shell，可继续在末尾添加：
+
+```shellscript
+if [ $IS_ROOT_SHELL ];then
+    proxy bash
+    exit
+fi
+```
+
 ## 使用
 
 ### 启动使用透明代理的 shell 或程序
@@ -41,8 +52,4 @@ proxy "curl https://www.google.com/"
 
 ### 协议类型可以填哪些？
 
-http，https，socks4，socks5，最好使用 socks5
-
-### 实现原理？
-
-很简单的，看下源码你就秒懂了
+http，socks4，socks5，最好使用 socks5

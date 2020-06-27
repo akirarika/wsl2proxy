@@ -17,6 +17,8 @@ if command -v proxychains4 >/dev/null 2>&1; then
     echo "tcp_connect_time_out 8000" >> /etc/proxychains.conf
     echo "[ProxyList]" >> /etc/proxychains.conf
     echo "$hotst_proxy_protocol  $host_ip $host_proxy_port" >> /etc/proxychains.conf
+
+    alias proxy="export IS_ROOT_SHELL=yes && proxychains4 -q"
 else
     echo "需要 proxychains4 可尝试输入 [installProxychains] 进行安装"
 fi
@@ -32,9 +34,4 @@ function installProxychains
     && touch /etc/proxychains.conf \
     && sudo chmod 777 /etc/proxychains.conf \
     && echo "\n安装成功"
-}
-
-function proxy
-{
-    proxychains4 -q $1
 }
