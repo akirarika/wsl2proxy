@@ -44,3 +44,7 @@ closeProxy
 ### 协议类型可以填哪些？
 
 http，https，socks4，socks5，最好使用 socks5
+
+### 实现原理？
+
+很简单的，看下源码你就秒懂了
