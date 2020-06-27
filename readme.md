@@ -54,3 +54,12 @@ proxy "curl https://www.google.com/"
 ### 协议类型可以填哪些？
 
 http，socks4，socks5，最好使用 socks5
+
+## 实现方式
+
+通过 `proxychains` 实现，首先动态获取 windows 的真实 ip，然后修改 `proxychains` 的配置文件，使其连接 windows 中的代理应用。
+尝试过 `export ALL_PROXY` 的方式实现，但兼容性不太理想，`iptables` 在新版 `wsl2` 中又有一些问题，所以目前只好这样实现。
+
+### proxychains 已知问题
+
+1. ICMP 无效，非 `socks5` 下 UDP 无效。
