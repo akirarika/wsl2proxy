@@ -1,24 +1,40 @@
 #!/bin/sh
 
-function openProxy
+local hotst_proxy_protocol=$1
+local host_proxy_port=$2
+local host_ip=$3
+
+if [ ! -n "$1" ]; then local hotst_proxy_protocol="socks5"; fi
+if [ ! -n "$2" ]; then local host_proxy_port="7891"; fi
+if [ ! -n "$3" ]; then local host_ip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*'); fi
+
+if command -v proxychains4 >/dev/null 2>&1; then 
+    echo "dynamic_chain" > /etc/proxychains.conf
+    echo "chain_len = 1" >> /etc/proxychains.conf
+    echo "proxy_dns" >> /etc/proxychains.conf
+    echo "remote_dns_subnet 224" >> /etc/proxychains.conf
+    echo "tcp_read_time_out 15000" >> /etc/proxychains.conf
+    echo "tcp_connect_time_out 8000" >> /etc/proxychains.conf
+    echo "[ProxyList]" >> /etc/proxychains.conf
+    echo "$hotst_proxy_protocol  $host_ip $host_proxy_port" >> /etc/proxychains.conf
+else
+    echo "需要 proxychains4 可尝试输入 [installProxychains] 进行安装"
+fi
+
+function installProxychains
 {
-    local host_ip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*')
-    local hotst_proxy_protocol=$1
-    local host_proxy_port=$2
-
-    if [ ! -n "$1" ]; then local hotst_proxy_protocol="socks5"; fi
-    if [ ! -n "$2" ]; then local host_proxy_port="7891"; fi
-
-    export all_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
-    export ftp_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
-    export http_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
-    export https_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
+    sudo echo "\n开始安装.." \
+    && cd /tmp \
+    && git clone https://github.com/rofl0r/proxychains-ng.git \
+    && cd proxychains-ng \
+    && ./configure \
+    && make && sudo make install \
+    && touch /etc/proxychains.conf \
+    && sudo chmod 777 /etc/proxychains.conf \
+    && echo "\n安装成功"
 }
 
-function closeProxy
+function proxy
 {
-    unset all_proxy
-    unset ftp_proxy
-    unset http_proxy
-    unset https_proxy
+    proxychains4 -q $1
 }
