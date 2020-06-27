@@ -1,6 +1,6 @@
 # wsl2proxy
 
-让 wsl2 透明使用 windows 中的代理
+让 wsl2 "透明"使用 windows 中的代理
 
 ## 安装
 
