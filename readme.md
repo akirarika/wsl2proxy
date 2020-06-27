@@ -7,9 +7,10 @@
 ```shellscript
 # 在 linux 子系统下执行
 cd /usr/local && sudo git clone https://github.com/akirarika/wsl2proxy.git && cd wsl2proxy && sudo chmod +x ./wsl2proxy
+```
 
-# 接着在你使用的 shell 配置文件末尾添加
-# 例：使用 `bash` 则在 `~/.bashrc`，`zsh` 在 `~/.zshrc`
+接着在你使用的 shell 配置文件末尾添加
+例：使用 `bash` 则在 `~/.bashrc`，`zsh` 在 `~/.zshrc`
 
 ```shellscript
 # 向脚本传递两个参数，以指定你在 windows 下代理程序的协议和端口
