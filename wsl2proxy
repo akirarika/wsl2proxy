@@ -7,7 +7,7 @@ function openProxy
     local host_proxy_port=$2
 
     if [ ! -n "$1" ]; then local hotst_proxy_protocol="socks5"; fi
-    if [ ! -n "$1" ]; then local host_proxy_port="7891"; fi
+    if [ ! -n "$2" ]; then local host_proxy_port="7891"; fi
 
     export all_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
     export ftp_proxy=$hotst_proxy_protocol://$host_ip:$host_proxy_port
