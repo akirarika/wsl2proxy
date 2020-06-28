@@ -45,6 +45,10 @@ proxy "curl https://www.google.com/"
 
 ## 常见问题
 
+### 安装 proxychains 时报错 "cannot find an option to set library name"
+
+详见这个 [issue](https://github.com/rofl0r/proxychains-ng/issues/234)
+
 ### 端口号和协议配置的正确了，为什么还是连不上？
 
 要在你的代理程序中允许来自局域网的请求，如打开 `Allow LAN` 开关，或将服务监听地址从 `127.0.0.1` 改为 `0.0.0.0` 等，根据你使用的客户端而异
